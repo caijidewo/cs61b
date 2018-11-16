@@ -17,26 +17,52 @@ public class NBody{
 		return allPlanets;
 	}
 	public static void main(String[] args) {
+		StdDraw.enableDoubleBuffering();
 		double T=Double.parseDouble(args[0]);
 		double dt=Double.parseDouble(args[1]);
 		String filename=args[2];
 		String imageToDraw = "./images/starfield.jpg";
-		StdDraw.setScale(-1e+11, 1e+11);
+		StdDraw.setScale(-readRadius(filename),readRadius(filename) );
+//		System.out.print(readRadius(filename));
 		StdDraw.clear();
 		StdDraw.picture(0, 0, imageToDraw);
 		StdDraw.show();
 		StdDraw.pause(2000);
-		//String filename="data/planets.txt";
 		Planet[] allP=readPlanets(filename);
-		//Planet p=allP[2];
 		for(Planet p : allP){
-			//System.out.println(p.imgFileName);
-			//StdDraw.clear();
-			StdDraw.picture(p.xxPos,p.yyPos, "./images/" + p.imgFileName);
-			StdDraw.show();
-		    StdDraw.pause(200);
+			Planet.draw(p);
 		}
-		//StdDraw.show();
-		//StdDraw.pause(200000);
+		double t=0;
+		for(;t<=T;t=t+dt){
+			double[] xForces,yForces;
+			xForces=new double[allP.length];
+			yForces=new double[allP.length];
+			for(int i=0;i<xForces.length;i++){
+				xForces[i]=allP[i].calcNetForceExertedByX(allP);
+				yForces[i]=allP[i].calcNetForceExertedByY(allP);
+			}
+			for(int i=0;i<xForces.length;i++){
+				allP[i].update(t,xForces[i],yForces[i]);
+			}
+			StdDraw.clear();
+			StdDraw.picture(0,0,imageToDraw);
+			for(int j=0;j<allP.length;j++)
+				Planet.draw(allP[j]);
+			StdDraw.show();
+			StdDraw.pause(500);
+		}
+		StdOut.printf("%d\n", allP.length);
+		StdOut.printf("%.2e\n",readRadius(filename));
+		for (int i = 0; i < allP.length; i++) {
+    		StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+            	allP[i].xxPos, allP[i].yyPos, allP[i].xxVel,
+            	allP[i].yyVel, allP[i].mass, allP[i].imgFileName);   
+		}
+		/*for(Planet p : allP){
+			System.out.print(p.xxPos+" "+p.yyPos+" ");
+			System.out.print(p.xxVel+" "+p.yyVel+" ");
+			System.out.print(p.mass);
+			System.out.println(p.imgFileName);
+		}*/
 	}
 }
