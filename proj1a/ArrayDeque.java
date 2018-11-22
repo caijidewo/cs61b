@@ -1,11 +1,11 @@
-public class ArrayDeque<ElementType> {
-    private ElementType[] Array;
+public class ArrayDeque<T> {
+    private T[] Array;
     private int size;
     private int nextFirst;
     private int nextLast;
 
     public ArrayDeque(){
-        Array= (ElementType[]) new Object[8];
+        Array= (T[]) new Object[8];
         nextFirst=0;
         nextLast=1;
         size=0;
@@ -24,9 +24,9 @@ public class ArrayDeque<ElementType> {
         else indexOfPlusOne=index+1;
         return indexOfPlusOne;
     }
-    public void addFirst(ElementType item){
+    public void addFirst(T item){
         if(isFull()==true){
-            ElementType[] ResizeArray=(ElementType[]) new Object[Array.length*2];
+            T[] ResizeArray=(T[]) new Object[Array.length*2];
             int copyIndex=1;
             for(int i=nextFirst+1;i!=nextLast;i=(i+1)%Array.length){
                 ResizeArray[copyIndex++]=Array[i];
@@ -40,9 +40,9 @@ public class ArrayDeque<ElementType> {
         size=size+1;
     }
 
-    public void addLast(ElementType item){
+    public void addLast(T item){
         if(isFull()==true){
-            ElementType[] ResizeArray=(ElementType[]) new Object[Array.length*2];
+            T[] ResizeArray=(T[]) new Object[Array.length*2];
             int copyIndex=1;
             for(int i=nextFirst+1;i!=nextLast;i=(i+1)%Array.length){
                 ResizeArray[copyIndex++]=Array[i];
@@ -59,7 +59,7 @@ public class ArrayDeque<ElementType> {
     public boolean isEmpty(){
         return (nextFirst+1)%Array.length==nextLast;
     }
-    public boolean isFull(){
+    private boolean isFull(){
         return (nextLast+1)%Array.length==nextFirst;
     }
     public int size(){
@@ -71,8 +71,8 @@ public class ArrayDeque<ElementType> {
                 System.out.println(Array[i]);
         }
     }
-    public ElementType removeFirst(){
-        ElementType removeItem=null;
+    public T removeFirst(){
+        T removeItem=null;
         if(isEmpty()==false){
             removeItem=Array[plusOne(nextFirst)];
             Array[plusOne(nextFirst)]=null;
@@ -81,8 +81,8 @@ public class ArrayDeque<ElementType> {
         }
         return removeItem;
     }
-    public ElementType removeLast(){
-        ElementType removeItem=null;
+    public T removeLast(){
+        T removeItem=null;
         if(isEmpty()==false){
             removeItem=Array[minusOne(nextLast)];
             Array[minusOne(nextLast)]=null;
@@ -91,8 +91,8 @@ public class ArrayDeque<ElementType> {
         }
         return removeItem;
     }
-    public ElementType get(int index){
-        ElementType getItem=null;
+    public T get(int index){
+        T getItem=null;
         if(isEmpty()==false){
             getItem=Array[(nextFirst+index)%Array.length];
         }
