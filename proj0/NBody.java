@@ -23,14 +23,13 @@ public class NBody{
 		String filename=args[2];
 		String imageToDraw = "./images/starfield.jpg";
 		StdDraw.setScale(-readRadius(filename),readRadius(filename) );
-//		System.out.print(readRadius(filename));
 		StdDraw.clear();
 		StdDraw.picture(0, 0, imageToDraw);
 		StdDraw.show();
 		StdDraw.pause(2000);
 		Planet[] allP=readPlanets(filename);
 		for(Planet p : allP){
-			Planet.draw(p);
+			p.draw();
 		}
 		double t=0;
 		for(;t<=T;t=t+dt){
@@ -47,7 +46,7 @@ public class NBody{
 			StdDraw.clear();
 			StdDraw.picture(0,0,imageToDraw);
 			for(int j=0;j<allP.length;j++)
-				Planet.draw(allP[j]);
+				allP[j].draw();
 			StdDraw.show();
 			StdDraw.pause(500);
 		}
@@ -58,11 +57,5 @@ public class NBody{
             	allP[i].xxPos, allP[i].yyPos, allP[i].xxVel,
             	allP[i].yyVel, allP[i].mass, allP[i].imgFileName);   
 		}
-		/*for(Planet p : allP){
-			System.out.print(p.xxPos+" "+p.yyPos+" ");
-			System.out.print(p.xxVel+" "+p.yyVel+" ");
-			System.out.print(p.mass);
-			System.out.println(p.imgFileName);
-		}*/
 	}
 }

@@ -1,5 +1,5 @@
 public class Planet{
-	static final double G=6.67e-11;
+	private static final double G=6.67e-11;
 	public double xxPos;
 	public double yyPos;
 	public double xxVel;
@@ -45,7 +45,7 @@ public class Planet{
 		Fy=sign*calcForceExertedBy(p)*Math.abs(p.yyPos-this.yyPos)/calcDistance(p);
 		return Fy;
 	}
-	public boolean equals(Planet p){
+	private boolean equals(Planet p){
 		boolean same;
 		if((p.xxPos==this.xxPos)&&(p.yyPos==this.yyPos))
 			same=true;
@@ -75,9 +75,9 @@ public class Planet{
 		this.xxPos=this.xxPos+this.xxVel*dt;
 		this.yyPos=this.yyPos+this.yyVel*dt;
 	}
-	public static void draw(Planet p){
-		String filename="./images/"+p.imgFileName;
-		StdDraw.picture(p.xxPos,p.yyPos, filename);
+	public void draw(){
+		String filename="./images/"+this.imgFileName;
+		StdDraw.picture(this.xxPos,this.yyPos, filename);
 		StdDraw.show();
 	}
 
