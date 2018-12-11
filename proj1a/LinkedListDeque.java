@@ -42,8 +42,8 @@ public class LinkedListDeque<T> {
             p = new IntNode(item, sentinel, null);
         }
         sentinel.next = p;
-        if(last == sentinel){
-            last=p;
+        if (last == sentinel) {
+            last = p;
         }
         size++;
     }
@@ -106,17 +106,13 @@ public class LinkedListDeque<T> {
         return X;
     }
     public T get(int index) {
-        T X;
-        if (size != 0) {
-            IntNode p = sentinel;
-            while (index != 0) {
-                p = p.next;
-                index--;
-            }
-            X = p.item;
-        } else {
-            X = null;
+        T X = null;
+        IntNode p = sentinel;
+        while (index >= 0) {
+            p = p.next;
+            index = index - 1;
         }
+        X = p.item;
         return X;
     }
     public T getRecursive(int index) {
