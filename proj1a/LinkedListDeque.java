@@ -42,7 +42,9 @@ public class LinkedListDeque<T> {
             p = new IntNode(item, sentinel, null);
         }
         sentinel.next = p;
-        last = p;
+        if(last == sentinel){
+            last=p;
+        }
         size++;
     }
 
