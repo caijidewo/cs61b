@@ -3,12 +3,15 @@ public class ArrayDeque<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
+    private double UsageRate;
+    private static final double UsageFactor = 0.25;
 
     public ArrayDeque() {
         array = (T[]) new Object[8];
         nextFirst = 0;
         nextLast = 1;
         size = 0;
+        UsageRate = (double)(size + 2) / array.length;
     }
     private int minusOne(int index) {
         int indexOfMinusOne;
@@ -39,10 +42,12 @@ public class ArrayDeque<T> {
             nextFirst = 0;
             nextLast = array.length - 1;
             array = resizeArray;
+            UsageRate = (double)(size + 2) / array.length;
         }
         array[nextFirst] = item;
         nextFirst = minusOne(nextFirst);
         size = size + 1;
+        UsageRate = (double)(size + 2) / array.length;
     }
 
     public void addLast(T item) {
@@ -56,10 +61,12 @@ public class ArrayDeque<T> {
             nextFirst = 0;
             nextLast = array.length - 1;
             array = resizeArray;
+            UsageRate = (double)(size + 2) / array.length;
         }
         array[nextLast] = item;
         nextLast = plusOne(nextLast);
         size = size + 1;
+        UsageRate = (double)(size + 2) / array.length;
     }
 
     public boolean isEmpty() {
@@ -80,21 +87,47 @@ public class ArrayDeque<T> {
     }
     public T removeFirst() {
         T removeItem = null;
+        if (UsageRate < UsageFactor && array.length > 16 ) {
+            T[] resizeArray = (T[]) new Object[array.length / 2];
+            int copyIndex = 1;
+            int i = (nextFirst + 1) % array.length;
+            for (; i != nextLast; i = (i + 1) % array.length) {
+                resizeArray[copyIndex++] = array[i];
+            }
+            nextFirst = 0;
+            nextLast = size + 1;
+            array = resizeArray;
+            UsageRate = (double)(size + 2) / array.length;
+        }
         if (!isEmpty()) {
             removeItem = array[plusOne(nextFirst)];
             array[plusOne(nextFirst)] = null;
             nextFirst = plusOne(nextFirst);
             size = size - 1;
+            UsageRate = (double)(size + 2) / array.length;
         }
         return removeItem;
     }
     public T removeLast() {
         T removeItem = null;
+        if (UsageRate < UsageFactor && array.length > 16 ) {
+            T[] resizeArray = (T[]) new Object[array.length / 2];
+            int copyIndex = 1;
+            int i = (nextFirst + 1) % array.length;
+            for (; i != nextLast; i = (i + 1) % array.length) {
+                resizeArray[copyIndex++] = array[i];
+            }
+            nextFirst = 0;
+            nextLast = size + 1;
+            array = resizeArray;
+            UsageRate = (double)(size + 2) / array.length;
+        }
         if (!isEmpty()) {
             removeItem = array[minusOne(nextLast)];
             array[minusOne(nextLast)] = null;
             nextLast = minusOne(nextLast);
             size = size - 1;
+            UsageRate = (double)(size + 2) / array.length;
         }
         return removeItem;
     }
