@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 public class ArrayDeque<T> {
     private T[] array;
     private int size;
@@ -32,7 +34,7 @@ public class ArrayDeque<T> {
         if (isFull()) {
             T[] resizeArray = (T[]) new Object[array.length * 2];
             int copyIndex = 1;
-            int i = nextFirst + 1;
+            int i = (nextFirst + 1) % array.length;
             for (; i != nextLast; i = (i + 1) % array.length) {
                 resizeArray[copyIndex++] = array[i];
             }
@@ -49,7 +51,7 @@ public class ArrayDeque<T> {
         if (isFull()) {
             T[] resizeArray = (T[]) new Object[array.length * 2];
             int copyIndex = 1;
-            int i = nextFirst + 1;
+            int i = (nextFirst + 1) % array.length;
             for (; i != nextLast; i = (i + 1) % array.length) {
                 resizeArray[copyIndex++] = array[i];
             }
