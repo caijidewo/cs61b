@@ -1,5 +1,6 @@
+
 /** LinkedListDeque.
- *  @author lizhidong
+ * @author lizhidong
  */
 public class LinkedListDeque<T> {
     /** Nested Class. */
