@@ -1,4 +1,3 @@
-
 /** LinkedListDeque.
  * @author lizhidong
  */
