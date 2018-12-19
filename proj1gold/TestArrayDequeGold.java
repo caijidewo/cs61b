@@ -6,8 +6,8 @@ public class TestArrayDequeGold {
     public void testDifference() {
         ArrayDequeSolution<Integer> actual = new ArrayDequeSolution<Integer>();
         StudentArrayDeque<Integer> expected = new StudentArrayDeque<Integer>();
-        String message = "";
-        for (Integer i = 0; i < 50; i++) {
+        String message = "\n";
+        for (Integer i = 0; i < 1000; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
             if (numberBetweenZeroAndOne < 0.25) {
                 actual.addFirst(i);
