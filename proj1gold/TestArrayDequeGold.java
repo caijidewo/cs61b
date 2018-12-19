@@ -7,7 +7,7 @@ public class TestArrayDequeGold {
         ArrayDequeSolution<Integer> actual = new ArrayDequeSolution<Integer>();
         StudentArrayDeque<Integer> expected = new StudentArrayDeque<Integer>();
         String message = "";
-        for (Integer i = 0; i < 20; i++) {
+        for (Integer i = 0; i < 50; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
             if (numberBetweenZeroAndOne < 0.25) {
                 actual.addFirst(i);
@@ -26,7 +26,7 @@ public class TestArrayDequeGold {
                 assertEquals(message, expectedV, actualV);
             } else {
                 Integer actualV = actual.removeLast();
-                Integer expectedV = actual.removeLast();
+                Integer expectedV = expected.removeLast();
                 message = message + "removeLast()\n";
                 assertEquals(message, expectedV, actualV);
             }
