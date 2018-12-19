@@ -23,7 +23,7 @@ public class TestArrayDequeGold {
                 Integer actualV = actual.removeFirst();
                 Integer expectedV = expected.removeFirst();
                 message = message + "removeFirst()\n";
-                assertEquals("removeFirst()", expectedV, actualV);
+                assertEquals(message, expectedV, actualV);
             } else {
                 Integer actualV = actual.removeLast();
                 Integer expectedV = actual.removeLast();
