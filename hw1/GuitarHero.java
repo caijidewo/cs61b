@@ -8,8 +8,7 @@ public class GuitarHero {
         keyboard = new char[VARIETY];
         keyboard = key.toCharArray();
         for (int i = 0; i < concert.length; i++) {
-            concert[i] = new synthesizer.GuitarString(440 *
-                    Math.pow(2,(i - 24) / 12.0));
+            concert[i] = new synthesizer.GuitarString(440 * Math.pow(2, (i - 24) / 12.0));
         }
     }
     private static int indexOf(char key) {
@@ -23,8 +22,8 @@ public class GuitarHero {
         return indexOfKey;
     }
     public static void main(String[] args) {
-        String KeyBoard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
-        GuitarHero guitar = new GuitarHero(KeyBoard);
+        String keyBoard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+        GuitarHero guitar = new GuitarHero(keyBoard);
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();

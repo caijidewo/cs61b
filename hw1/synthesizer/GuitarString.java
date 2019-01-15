@@ -49,9 +49,9 @@ public class GuitarString {
         Double frontItem = buffer.dequeue();
         Double nextItem = buffer.peek();
         Double item;
-        try{
+        try {
             item = (frontItem + nextItem) / 2 * DECAY;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             if (frontItem == null) {
                 frontItem = .0;
             }
