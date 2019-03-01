@@ -55,7 +55,7 @@ public class Percolation {
                         xyTo1D(row - 1, col, world.length));
             }
         } catch (java.lang.IndexOutOfBoundsException e) {
-            ;
+
         }
         try {
             if (isOpen(row + 1, col)) {
@@ -64,8 +64,8 @@ public class Percolation {
                 ufNoBot.union((xyTo1D(row, col, world.length)),
                         xyTo1D(row + 1, col, world.length));
             }
-        }catch (java.lang.IndexOutOfBoundsException e) {
-            ;
+        } catch (java.lang.IndexOutOfBoundsException e) {
+
         }
         try {
             if (isOpen(row, col - 1)) {
@@ -75,7 +75,7 @@ public class Percolation {
                         xyTo1D(row, col - 1, world.length));
             }
         } catch (java.lang.IndexOutOfBoundsException e) {
-            ;
+
         }
         try {
             if (isOpen(row, col + 1)) {
@@ -85,7 +85,7 @@ public class Percolation {
                         xyTo1D(row, col + 1, world.length));
             }
         } catch (java.lang.IndexOutOfBoundsException e) {
-            ;
+
         }
     }
     /**
@@ -137,5 +137,8 @@ public class Percolation {
             return isOpen(0, 0);
         }
         return uf.connected(world.length * world.length, world.length * world.length + 1);
+    }
+    public static void main(String[] args) {
+
     }
 }
