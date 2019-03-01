@@ -1,7 +1,7 @@
 package hw2;
 import edu.princeton.cs.algs4.StdRandom;
 public class PercolationStats {
-    double[] item;
+    private double[] item;
     /**
      * perform T independent experiments on an N-by-N grid
      * @param N

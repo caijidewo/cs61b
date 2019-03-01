@@ -47,175 +47,47 @@ public class Percolation {
         } else {
             return;
         }
-        if (row != 0 && row != world.length - 1 && col != 0 && col != world.length - 1) {
+        try {
             if (isOpen(row - 1, col)) {
                 uf.union(xyTo1D(row, col, world.length),
                         xyTo1D(row - 1, col, world.length));
                 ufNoBot.union(xyTo1D(row, col, world.length),
                         xyTo1D(row - 1, col, world.length));
             }
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            ;
+        }
+        try {
             if (isOpen(row + 1, col)) {
                 uf.union((xyTo1D(row, col, world.length)),
                         xyTo1D(row + 1, col, world.length));
                 ufNoBot.union((xyTo1D(row, col, world.length)),
                         xyTo1D(row + 1, col, world.length));
             }
+        }catch (java.lang.IndexOutOfBoundsException e) {
+            ;
+        }
+        try {
             if (isOpen(row, col - 1)) {
                 uf.union(xyTo1D(row, col, world.length),
                         xyTo1D(row, col - 1, world.length));
                 ufNoBot.union(xyTo1D(row, col, world.length),
                         xyTo1D(row, col - 1, world.length));
             }
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            ;
+        }
+        try {
             if (isOpen(row, col + 1)) {
                 uf.union((xyTo1D(row, col, world.length)),
                         xyTo1D(row, col + 1, world.length));
                 ufNoBot.union((xyTo1D(row, col, world.length)),
                         xyTo1D(row, col + 1, world.length));
             }
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            ;
         }
-        if (row == 0 && col != 0 && col != world.length - 1) {
-            if (isOpen(row + 1, col)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-            }
-            if (isOpen(row, col - 1)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-            }
-            if (isOpen(row, col + 1)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-            }
-        }
-        if (row != 0 && col == 0 && row != world.length - 1) {
-            if (isOpen(row - 1, col)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-            }
-            if (isOpen(row + 1, col)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-            }
-            if (isOpen(row, col + 1)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-            }
-        }
-        if (row == world.length - 1 && col != world.length - 1 && col != 0) {
-            if (isOpen(row - 1, col)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-            }
-            if (isOpen(row, col - 1)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-            }
-            if (isOpen(row, col + 1)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-            }
-        }
-        if (row != world.length - 1 && col == world.length - 1 && row != 0) {
-            if (isOpen(row - 1, col)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-            }
-            if (isOpen(row + 1, col)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-            }
-            if (isOpen(row, col - 1)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-            }
-        }
-        if (row == 0 && col == 0) {
-            if (isOpen(row + 1, col)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-            }
-            if (isOpen(row, col + 1)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-            }
-        }
-        if (row == 0 && col == world.length - 1) {
-            if (isOpen(row + 1, col)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row + 1, col, world.length));
-            }
-            if (isOpen(row, col - 1)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-            }
-        }
-        if (row == world.length - 1 && col == 0) {
-            if (isOpen(row - 1, col)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-            }
-            if (isOpen(row, col + 1)) {
-                uf.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-                ufNoBot.union((xyTo1D(row, col, world.length)),
-                        xyTo1D(row, col + 1, world.length));
-            }
-        }
-        if (row == world.length - 1 && col == world.length - 1) {
-            if (isOpen(row - 1, col)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row - 1, col, world.length));
-            }
-            if (isOpen(row, col - 1)) {
-                uf.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-                ufNoBot.union(xyTo1D(row, col, world.length),
-                        xyTo1D(row, col - 1, world.length));
-            }
-        }
-
-
     }
-    private void unionOpen() {
-
-    }
-
     /**
      * is the site (row, col) open?
      * @param row from 0 to N - 1
