@@ -44,6 +44,8 @@ public class Percolation {
         if (!world[row][col]) {
             world[row][col] = true;
             openSites = openSites + 1;
+        } else {
+            return;
         }
         if (row != 0 && row != world.length - 1 && col != 0 && col != world.length - 1) {
             if (isOpen(row - 1, col)) {
