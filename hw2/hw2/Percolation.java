@@ -41,8 +41,10 @@ public class Percolation {
         if (row < 0 || col < 0) {
             throw new java.lang.IndexOutOfBoundsException();
         }
-        world[row][col] = true;
-        openSites = openSites + 1;
+        if (!world[row][col]) {
+            world[row][col] = true;
+            openSites = openSites + 1;
+        }
         if (row != 0 && row != world.length - 1 && col != 0 && col != world.length - 1) {
             if (isOpen(row - 1, col)) {
                 uf.union(xyTo1D(row, col, world.length),
