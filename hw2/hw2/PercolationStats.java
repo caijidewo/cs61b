@@ -1,7 +1,10 @@
 package hw2;
+
 import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.introcs.StdStats;
+
 public class PercolationStats {
-    private double[] item;
+    private double[] threshold;
     /**
      * perform T independent experiments on an N-by-N grid
      * @param N
@@ -12,16 +15,15 @@ public class PercolationStats {
         if (N <= 0 || T <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
-        item = new double[N];
+        threshold = new double[T];
         for (int i = 0; i < T; i++) {
-            Percolation p = pf.make(N);
-            while (!p.percolates()) {
+            Percolation item = pf.make(N);
+            while (!item.percolates()) {
                 int row = StdRandom.uniform(N);
                 int col = StdRandom.uniform(N);
-                p.isOpen(row, col);
+                item.open(row, col);
             }
-            double threshod = (double) p.numberOfOpenSites() / N / N;
-            item[i] = threshod;
+            threshold[i] = (double) item.numberOfOpenSites() / N / N;
         }
     }
 
@@ -30,11 +32,7 @@ public class PercolationStats {
      * @return
      */
     public double mean() {
-        double sum = 0;
-        for (double d : item) {
-            sum += d;
-        }
-        return sum / item.length;
+        return  StdStats.mean(threshold);
     }
 
     /**
@@ -42,13 +40,7 @@ public class PercolationStats {
      * @return
      */
     public double stddev() {
-        double sampleMean = mean();
-        double variance = 0;
-        for (double d : item) {
-            variance += (d - sampleMean) * (d - sampleMean);
-        }
-        variance = variance / (item.length - 1);
-        return Math.sqrt(variance);
+        return StdStats.stddev(threshold);
     }
 
     /**
@@ -58,7 +50,7 @@ public class PercolationStats {
     public double confidenceLow() {
         double sampleMean = mean();
         double standardDeviation = stddev();
-        return sampleMean - 1.96 * standardDeviation / Math.sqrt(item.length);
+        return sampleMean - 1.96 * standardDeviation / Math.sqrt(threshold.length);
     }
 
     /**
@@ -68,6 +60,6 @@ public class PercolationStats {
     public double confidenceHigh() {
         double sampleMean = mean();
         double standardDeviation = stddev();
-        return sampleMean + 1.96 * standardDeviation / Math.sqrt(item.length);
+        return sampleMean + 1.96 * standardDeviation / Math.sqrt(threshold.length);
     }
 }

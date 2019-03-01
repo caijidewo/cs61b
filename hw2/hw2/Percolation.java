@@ -133,9 +133,9 @@ public class Percolation {
      * @return
      */
     public boolean percolates() {
+        if (world.length == 1) {
+            return isOpen(0, 0);
+        }
         return uf.connected(world.length * world.length, world.length * world.length + 1);
-    }
-    public static void main(String[] args) {
-
     }
 }
