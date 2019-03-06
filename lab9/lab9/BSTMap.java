@@ -1,7 +1,9 @@
 package lab9;
 
+//import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Implementation of interface Map61B with BST as core data structure.
@@ -44,7 +46,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      *  or null if this map contains no mapping for the key.
      */
     private V getHelper(K key, Node p) {
-        if (p == null) return null;
+        if (p == null) {
+            return null;
+        }
         if (p.key.compareTo(key) < 0) {
             return getHelper(key, p.right);
         } else if (p.key.compareTo(key) > 0) {
@@ -103,9 +107,23 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> setOfK = new HashSet<>();
+        midTraverse(root, setOfK);
+        return setOfK;
     }
 
+    private void midTraverse(Node tree, Set<K> setOfK) {
+        if (tree == null) {
+            return;
+        }
+        setOfK.add(tree.key);
+        if (tree.left != null) {
+            midTraverse(tree.left, setOfK);
+        }
+        if (tree.right != null) {
+            midTraverse(tree.right, setOfK);
+        }
+    }
     /** Removes KEY from the tree if present
      *  returns VALUE removed,
      *  null on failed removal.
@@ -114,6 +132,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     public V remove(K key) {
         throw new UnsupportedOperationException();
     }
+
 
     /** Removes the key-value entry for the specified key only if it is
      *  currently mapped to the specified value.  Returns the VALUE removed,
