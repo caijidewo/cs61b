@@ -2,12 +2,13 @@ package lab9;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  *  A hash table-backed Map implementation. Provides amortized constant time
  *  access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ *  @author LMN
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -16,6 +17,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     private ArrayMap<K, V>[] buckets;
     private int size;
+    private int ptrBucket;
 
     private int loadFactor() {
         return size / buckets.length;
@@ -30,6 +32,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void clear() {
         this.size = 0;
+        ptrBucket = 0;
         for (int i = 0; i < this.buckets.length; i += 1) {
             this.buckets[i] = new ArrayMap<>();
         }
@@ -80,14 +83,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
 
     /* Returns a Set view of the keys contained in this map. */
+
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
-        /*
         Set<K> keyOfK = new HashSet<>();
+        for (ArrayMap<K, V> map : buckets) {
+            for (K key : map) {
+                keyOfK.add(key);
+            }
+        }
         return keyOfK;
-        */
     }
+
 
     /* Removes the mapping for the specified key from this map if exists.
      * Not required for this lab. If you don't implement this, throw an
