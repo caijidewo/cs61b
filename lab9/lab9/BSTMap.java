@@ -8,7 +8,7 @@ import java.util.HashSet;
 /**
  * Implementation of interface Map61B with BST as core data structure.
  *
- * @author Your name here
+ * @author LMN
  */
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
@@ -75,9 +75,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             return new Node(key, value);
         }
         if (p.key.compareTo(key) < 0) {
-            return p.right = putHelper(key, value, p.right);
+            p.right = putHelper(key, value, p.right);
         } else if (p.key.compareTo(key) > 0) {
-            return p.left = putHelper(key, value, p.left);
+            p.left = putHelper(key, value, p.left);
         } else {
             p.value = value;
         }
@@ -130,7 +130,49 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        V deleteNode = find(key, root);
+        root = removeHelper(key, root);
+        if (deleteNode != null) {
+            size = size - 1;
+        }
+        return deleteNode;
+    }
+    private V find(K key, Node p) {
+        if (p == null) {
+            return null;
+        }
+        if (p.key.compareTo(key) < 0) {
+            return find(key, p.right);
+        } else if (p.key.compareTo(key) > 0) {
+            return find(key, p.left);
+        } else {
+            return p.value;
+        }
+    }
+
+    private Node removeHelper(K key, Node p) {
+        if (p == null) {
+            return null;
+        }
+        if (p.key.compareTo(key) < 0) {
+            p.right = removeHelper(key, p.right);
+        } else if (p.key.compareTo(key) > 0) {
+            p.left = removeHelper(key, p.left);
+        } else {
+            if (p.left != null && p.right != null) {
+                Node tmp = findRightMin(p.right);
+                p.key = tmp.key;
+                p.value = tmp.value;
+                p.right = removeHelper(p.key, p.right);
+            } else {
+                if (p.left == null) {
+                    p = p.right;
+                } else {
+                    p = p.left;
+                }
+            }
+        }
+        return p;
     }
 
 
@@ -140,11 +182,26 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      **/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        V removeValue = find(key, root);
+        if (removeValue == value) {
+            return remove(key);
+        } else {
+            return null;
+        }
+    }
+
+    private Node findRightMin(Node p) {
+        if (p == null) {
+            return null;
+        }
+        if (p.left == null) {
+            return p;
+        }
+        return findRightMin(p.left);
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet().iterator();
     }
 }
