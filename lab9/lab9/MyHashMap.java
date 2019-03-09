@@ -17,7 +17,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     private ArrayMap<K, V>[] buckets;
     private int size;
-    private int ptrBucket;
 
     private int loadFactor() {
         return size / buckets.length;
@@ -32,7 +31,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void clear() {
         this.size = 0;
-        ptrBucket = 0;
         for (int i = 0; i < this.buckets.length; i += 1) {
             this.buckets[i] = new ArrayMap<>();
         }
@@ -68,6 +66,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
+        if (loadFactor() > MAX_LF) {
+            ArrayMap<K, V>[] resizeBucket = new ArrayMap[buckets.length * 2];
+            for (int i = 0; i < resizeBucket.length; i++) {
+                resizeBucket[i] = new ArrayMap<>();
+            }
+            for (ArrayMap<K, V> aMap : buckets) {
+                for (K k : aMap) {
+                    resizeBucket[hash(k) % resizeBucket.length].put(k, aMap.get(k));
+                }
+            }
+            buckets = resizeBucket;
+        }
         if (!buckets[hash(key) % buckets.length].containsKey(key)) {
             size = size + 1;
         }
