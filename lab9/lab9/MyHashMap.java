@@ -57,8 +57,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (key == null) {
             return null;
         }
-        if (buckets[hash(key) % buckets.length].containsKey(key)) {
-            return buckets[hash(key) % buckets.length].get(key);
+        if (buckets[hash(key)].containsKey(key)) {
+            return buckets[hash(key)].get(key);
         }
         return null;
     }
@@ -73,15 +73,15 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             }
             for (ArrayMap<K, V> aMap : buckets) {
                 for (K k : aMap) {
-                    resizeBucket[hash(k) % resizeBucket.length].put(k, aMap.get(k));
+                    resizeBucket[hash(k)].put(k, aMap.get(k));
                 }
             }
             buckets = resizeBucket;
         }
-        if (!buckets[hash(key) % buckets.length].containsKey(key)) {
+        if (!buckets[hash(key)].containsKey(key)) {
             size = size + 1;
         }
-        buckets[hash(key) % buckets.length].put(key, value);
+        buckets[hash(key)].put(key, value);
     }
 
     /* Returns the number of key-value mappings in this map. */
@@ -111,8 +111,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * UnsupportedOperationException. */
     @Override
     public V remove(K key) {
-        if (buckets[hash(key) % buckets.length].containsKey(key)) {
-            return buckets[hash(key) % buckets.length].remove(key);
+        if (buckets[hash(key)].containsKey(key)) {
+            return buckets[hash(key)].remove(key);
         }
         return null;
     }
@@ -122,8 +122,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * throw an UnsupportedOperationException.*/
     @Override
     public V remove(K key, V value) {
-        if (buckets[hash(key) % buckets.length].containsKey(key)) {
-            return buckets[hash(key) % buckets.length].remove(key, value);
+        if (buckets[hash(key)].containsKey(key)) {
+            return buckets[hash(key)].remove(key, value);
         }
         return null;
     }
