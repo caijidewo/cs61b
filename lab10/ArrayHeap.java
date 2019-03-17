@@ -215,8 +215,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         for (int i = 1; i <= size; i++) {
             if (item.equals(contents[i].myItem)) {
                 contents[i].myPriority = priority;
-                if (inBounds(parentIndex(i)) &&
-                        priority < contents[parentIndex(i)].myPriority) {
+                if (inBounds(parentIndex(i))
+                        && priority < contents[parentIndex(i)].myPriority) {
                     swim(i);
                 } else {
                     sink(i);
@@ -462,7 +462,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public void testRandomInsert() {
         ExtrinsicPQ<Integer> aHeap = new ArrayHeap<>();
         for (int i = 0; i < 4000; i++) {
-            aHeap.insert(i,i);
+            aHeap.insert(i, i);
         }
         for (int i = 0; i < 3000; i++) {
             aHeap.removeMin();
