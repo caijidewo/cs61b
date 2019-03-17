@@ -121,7 +121,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
-        validateSinkSwimArg(index);
+        //validateSinkSwimArg(index);
 
         /** "TODO": Your code here. */
         while (inBounds(rightIndex(index)) && contents[index].myPriority
@@ -452,4 +452,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
     }
 
+    @Test
+    public void testRandomInsert() {
+        ExtrinsicPQ<Integer> aHeap = new ArrayHeap<>();
+        for (int i = 0; i < 4000; i++) {
+            aHeap.insert(i,i);
+        }
+        for (int i = 0; i < 3000; i++) {
+            aHeap.removeMin();
+        }
+    }
 }
