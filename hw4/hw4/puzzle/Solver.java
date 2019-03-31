@@ -51,7 +51,7 @@ public class Solver {
             }
         }
     }
-    Solver(WorldState initial) {
+    public Solver(WorldState initial) {
         CompareSearchNode compareSearchNode = new CompareSearchNode();
         pq = new MinPQ<>(compareSearchNode);
         pq.insert(new SearchNode(initial, 0, null));
