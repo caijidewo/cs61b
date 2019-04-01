@@ -18,7 +18,7 @@ public class Board implements WorldState {
                     zeroRow = i;
                     zeroColumn = j;
                 }
-                if (board[i][j] != goal(i, j)) {
+                if (board[i][j] != 0 && board[i][j] != goal(i, j)) {
                     hammingDistance = hammingDistance + 1;
                 }
                 if (board[i][j] != 0 && board[i][j] != goal(i, j)) {
@@ -131,7 +131,7 @@ public class Board implements WorldState {
             return false;
         }
         Board o = (Board) y;
-        if(o.size() != board.length) {
+        if (o.size() != board.length) {
             return false;
         }
         for (int i = 0; i < size(); i++) {
@@ -158,5 +158,15 @@ public class Board implements WorldState {
         }
         s.append("\n");
         return s.toString();
+    }
+    @Override
+    public int hashCode() {
+        int hashNumber = 0;
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                hashNumber = hammingDistance + i * 100 + j * 1000 + board[i][j] * 10000;
+            }
+        }
+        return hashNumber;
     }
 }
