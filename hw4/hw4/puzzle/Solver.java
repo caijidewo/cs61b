@@ -55,18 +55,20 @@ public class Solver {
         CompareSearchNode compareSearchNode = new CompareSearchNode();
         pq = new MinPQ<>(compareSearchNode);
         pq.insert(new SearchNode(initial, 0, null));
-        minMoves = 0;
+        minMoves = -1;
         //estimateDisCache = new HashMap<>(16);
     }
     public int moves() {
-        answer = new Stack<>();
-        SearchNode goal = aStart();
-        while (goal != null) {
-            answer.push(goal.worldState);
-            goal = goal.preSearchNode;
-            minMoves = minMoves + 1;
+        if (minMoves == -1) {
+            answer = new Stack<>();
+            SearchNode goal = aStart();
+            while (goal != null) {
+                answer.push(goal.worldState);
+                goal = goal.preSearchNode;
+                minMoves = minMoves + 1;
+            }
         }
-        return minMoves - 1;
+        return minMoves;
     }
     private SearchNode aStart() {
         while (!pq.isEmpty()) {
@@ -95,15 +97,10 @@ public class Solver {
         return false;
     }
     public Iterable<WorldState> solution() {
+        if (minMoves == -1) {
+            minMoves = moves();
+        }
         return answer;
     }
-    /*
-    public static void main(String[] args) {
-        WorldState w1 = new Word("cube", "tubes");
-        WorldState w2 = new Word("cube", "tubes");
-        HashMap<WorldState, Integer> j = new HashMap<>();
-        j.put(w1, 1);
-        System.out.println(j.containsKey(w2));
-    }
-     */
+
 }
