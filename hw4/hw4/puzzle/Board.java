@@ -21,7 +21,7 @@ public class Board implements WorldState {
                 if (board[i][j] != goal(i, j)) {
                     hammingDistance = hammingDistance + 1;
                 }
-                if (board[i][j] != goal(i, j)) {
+                if (board[i][j] != 0 && board[i][j] != goal(i, j)) {
                     int goalOfR = goalOfRow(board[i][j]);
                     int goalOfC = goalOfColumn(board[i][j]);
                     manhattenDistance += Math.abs(goalOfR - i) + Math.abs(goalOfC - j);
@@ -131,6 +131,9 @@ public class Board implements WorldState {
             return false;
         }
         Board o = (Board) y;
+        if(o.size() != board.length) {
+            return false;
+        }
         for (int i = 0; i < size(); i++) {
             for (int j = 0; j < size(); j++) {
                 if (board[i][j] != o.tileAt(i, j)) {
